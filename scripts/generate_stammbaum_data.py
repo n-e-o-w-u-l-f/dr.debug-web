@@ -2,11 +2,11 @@
 """
 Generate _data/stammbaum.json from content/stammbaum folders.
 
-Rule:
+Rules:
 - Every folder becomes a branch/node.
-- Optional .branch.json controls label, order, count, status and node_kind.
+- Optional .branch.json controls label, order, status, node_kind and Wissenstand metrics.
 - New folders without .branch.json are still included automatically.
-- Files beginning with "." and Jekyll internal folders beginning with "_" are skipped.
+- UI counts must come from Wissenstand metrics, not from children_count.
 """
 from __future__ import annotations
 
@@ -32,7 +32,6 @@ def load_meta(folder: Path) -> dict[str, Any]:
             return data
         except json.JSONDecodeError as exc:
             raise SystemExit(f"Invalid JSON in {meta_file}: {exc}") from exc
-    # Fallback: strip numeric ordering prefix from the folder name.
     label = re.sub(r"^\d{1,4}-", "", folder.name).replace("-", " ").strip().title()
     return {"label": label, "order": 9999, "node_kind": "branch_or_endpoint"}
 
@@ -59,12 +58,18 @@ def build_node(folder: Path, path_parts: list[str] | None = None) -> dict[str, A
         "path": "/".join(path_parts + [folder.name]) if path_parts else folder.name,
         "node_kind": meta.get("node_kind", "branch_or_endpoint"),
     }
-    for key in ("order", "count", "status", "source_count", "relation_type", "canonical_id"):
+    passthrough = (
+        "order", "count", "status", "source_count", "relation_type", "canonical_id",
+        "knowledge_count", "present_total", "missing_total", "proposal_only_total",
+        "canonical_total", "last_checked", "count_source", "risk", "source_status"
+    )
+    for key in passthrough:
         if key in meta:
             node[key] = meta[key]
     children = [build_node(child, path_parts + [folder.name]) for child in child_dirs(folder)]
     if children:
         node["children"] = children
+        # Internal only. The UI must not render this as the knowledge count.
         node["children_count"] = len(children)
     return node
 

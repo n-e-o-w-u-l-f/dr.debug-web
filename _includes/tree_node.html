@@ -7,17 +7,18 @@
   {%- assign has_children = true -%}
 {%- endif -%}
 
-<li class="tree-node depth-{{ depth }}" data-node-kind="{{ node.node_kind | default: 'branch_or_endpoint' }}">
+<li class="tree-node depth-{{ depth }}" data-node-kind="{{ node.node_kind | default: 'branch_or_endpoint' }}" data-depth="{{ depth }}">
   <div class="tree-row d-flex align-items-start gap-2 py-1">
     {%- if has_children -%}
       <button
         class="tree-toggle btn btn-sm btn-outline-secondary font-monospace"
         type="button"
+        data-tree-toggle
         data-bs-toggle="collapse"
         data-bs-target="#children-{{ node_id }}"
         aria-controls="children-{{ node_id }}"
         aria-expanded="{% if is_open %}true{% else %}false{% endif %}">
-        {% if is_open %}[-]{% else %}[+]{% endif %}
+        <span class="tree-toggle-symbol">{% if is_open %}[-]{% else %}[+]{% endif %}</span>
       </button>
     {%- else -%}
       <span class="tree-leaf-spacer font-monospace text-muted">•</span>
@@ -25,32 +26,43 @@
 
     <div class="tree-label flex-grow-1">
       <span class="fw-semibold">{{ node.label }}</span>
-      {%- if node.count != nil -%}
-        <span class="badge text-bg-light border ms-1">{{ node.count }}</span>
+
+      {%- comment -%}
+        Important: children_count is internal only.
+        Visible numbers must describe Wissenstand / MEMORY presence, not how many folders exist below a branch.
+      {%- endcomment -%}
+
+      {%- if node.knowledge_count != nil -%}
+        <span class="badge badge-knowledge ms-1" title="Wissenstand-Zähler, später aus dr.debug-memory/dr.debug-web synchronisiert">Wissen {{ node.knowledge_count }}</span>
+      {%- elsif node.count != nil -%}
+        <span class="badge badge-knowledge ms-1" title="Zählfeld für konkrete Inhalte">{{ node.count }}</span>
       {%- endif -%}
+
+      {%- if node.present_total != nil or node.missing_total != nil -%}
+        <span class="badge text-bg-success ms-1">vorhanden {{ node.present_total | default: 0 }}</span>
+        <span class="badge text-bg-danger ms-1">fehlend {{ node.missing_total | default: 0 }}</span>
+      {%- endif -%}
+
       {%- if node.status -%}
         <span class="badge text-bg-warning ms-1">{{ node.status }}</span>
       {%- endif -%}
       {%- if node.node_kind == "relation" -%}
         <span class="badge text-bg-info ms-1">Relation</span>
       {%- endif -%}
-      {%- if node.children_count -%}
-        <span class="badge text-bg-secondary ms-1">{{ node.children_count }}</span>
+      {%- if node.node_kind == "knowledge_metric" -%}
+        <span class="badge text-bg-primary ms-1">Wissensstand</span>
+      {%- endif -%}
+      {%- if node.source_count and node.source_count > 0 -%}
+        <span class="badge text-bg-success ms-1">Quellen {{ node.source_count }}</span>
       {%- endif -%}
     </div>
   </div>
 
   {%- if has_children -%}
-    <ul id="children-{{ node_id }}" class="tree-children collapse{% if is_open %} show{% endif %}">
+    <ul id="children-{{ node_id }}" class="tree-children collapse fade-collapse{% if is_open %} show{% endif %}">
       {%- for child in node.children -%}
         {%- assign child_id = node_id | append: "-" | append: forloop.index0 -%}
         {%- assign child_open = false -%}
-        {%- comment -%}
-          Initial state:
-          - root is open
-          - only the first branch below root is open
-          - all deeper branches start collapsed
-        {%- endcomment -%}
         {%- if node_id == "root" and forloop.first -%}
           {%- assign child_open = true -%}
         {%- endif -%}

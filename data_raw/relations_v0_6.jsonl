@@ -1,0 +1,28 @@
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "has_model_variant", "to": "SM-S911B", "source_id": "src.samsung.s23.specs", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "runs_os", "to": "os.android.android-15", "source_id": "src.samsung.s23.samfw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "runs_os", "to": "os.android.android-16", "source_id": "src.samsung.s23.samfw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "uses_software", "to": "software.tool.samsung-smart-switch", "source_id": "src.samsung.s23.specs", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "has_firmware_build", "to": "S911BXXS9EZC1", "source_id": "src.samsung.s23.samfw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "has_firmware_build", "to": "S911BXXSAFZE1", "source_id": "src.samsung.s23.samfw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.samsung.galaxy-s23.sm-s911b", "relation": "has_firmware_build", "to": "S911BXXU8DYD9", "source_id": "src.samsung.s23.samfw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.apple.iphone15.a2846", "relation": "runs_os", "to": "os.ios", "source_id": "src.apple.identify.iphone", "status": "PROPOSAL_ONLY"}
+{"from": "phone.apple.iphone15.a3089", "relation": "runs_os", "to": "os.ios", "source_id": "src.apple.identify.iphone", "status": "PROPOSAL_ONLY"}
+{"from": "phone.apple.iphone15.a3090", "relation": "runs_os", "to": "os.ios", "source_id": "src.apple.identify.iphone", "status": "PROPOSAL_ONLY"}
+{"from": "phone.apple.iphone15.a3092", "relation": "runs_os", "to": "os.ios", "source_id": "src.apple.identify.iphone", "status": "PROPOSAL_ONLY"}
+{"from": "phone.apple.iphone15.*", "relation": "uses_firmware_package_format", "to": "IPSW", "source_id": "src.apple.configurator.ipsw", "status": "PROPOSAL_ONLY"}
+{"from": "phone.google.pixel8.g9bqd", "relation": "runs_os", "to": "os.android", "source_id": "src.google.pixel.specs", "status": "PROPOSAL_ONLY"}
+{"from": "phone.google.pixel8.g9bqd", "relation": "has_factory_images", "to": "Google Factory Images", "source_id": "src.google.factory.images", "status": "PROPOSAL_ONLY"}
+{"from": "console.nintendo.nintendo-switch-hac-001", "relation": "runs_os", "to": "os.gaming.nintendo-systemsoftware", "source_id": "src.nintendo.switch.models", "status": "PROPOSAL_ONLY"}
+{"from": "console.nintendo.nintendo-switch-oled-heg-001", "relation": "runs_os", "to": "os.gaming.nintendo-systemsoftware", "source_id": "src.nintendo.switch.models", "status": "PROPOSAL_ONLY"}
+{"from": "console.sony.sony-playstation-3-cech-2000-series", "relation": "runs_os", "to": "os.gaming.playstation-systemsoftware", "source_id": "src.playstation.ps3.manual", "status": "PROPOSAL_ONLY"}
+{"from": "console.sony.sony-playstation-5-cfi-1000-series", "relation": "runs_os", "to": "os.gaming.playstation-systemsoftware", "source_id": "src.playstation.manuals", "status": "PROPOSAL_ONLY"}
+{"from": "console.microsoft.microsoft-xbox-series-x-1882", "relation": "runs_os", "to": "os.gaming.xbox-systemsoftware", "source_id": "src.xbox.system.updates", "status": "PROPOSAL_ONLY"}
+{"from": "software.emulator.mame", "relation": "emulates_platforms", "to": "arcade_and_home_systems", "source_id": "src.mame.docs", "status": "PROPOSAL_ONLY"}
+{"from": "router.tp-link.tp-link-archer-c7-v2", "relation": "compatibility_source", "to": "OpenWrt Table of Hardware", "source_id": "src.openwrt.toh", "status": "PROPOSAL_ONLY"}
+{"from": "router.netgear.netgear-r7800", "relation": "compatibility_source", "to": "OpenWrt Table of Hardware", "source_id": "src.openwrt.toh", "status": "PROPOSAL_ONLY"}
+{"from": "cpu.amd.amd-ryzen-7-7800x3d", "relation": "source_confirmed_by", "to": "AMD Product Page", "source_id": "src.amd.7800x3d", "status": "PROPOSAL_ONLY"}
+{"from": "gpu.nvidia.nvidia-geforce-rtx-4090", "relation": "source_confirmed_by", "to": "NVIDIA Product Page", "source_id": "src.nvidia.rtx4090", "status": "PROPOSAL_ONLY"}
+{"from": "software.tool.fwupd", "relation": "uses_metadata_from", "to": "LVFS", "source_id": "src.lvfs", "status": "PROPOSAL_ONLY"}
+{"from": "software.tool.fwupdmgr", "relation": "uses_metadata_from", "to": "LVFS", "source_id": "src.lvfs", "status": "PROPOSAL_ONLY"}
+{"from": "registry.usb.ids", "relation": "imports_identifier_data_into", "to": "hardware_identifier_records", "source_id": "src.linux_usb.ids", "status": "PROPOSAL_ONLY"}
+{"from": "linux.hwdb", "relation": "maps_identifiers_to_properties", "to": "udev-properties", "source_id": "src.systemd.hwdb", "status": "PROPOSAL_ONLY"}

@@ -4,12 +4,12 @@ title: Dr.Debug Stammbaum
 ---
 
 <div class="row g-4">
-  <section class="col-12 col-xl-8">
-    <div class="card shadow-sm">
+  <section class="col-12 col-xxl-9">
+    <div class="card shadow-sm tree-card">
       <div class="card-header d-flex flex-wrap align-items-center gap-2 justify-content-between">
         <div>
-          <h1 class="h4 mb-0">Geräte-, Software- und Relations-Stammbaum</h1>
-          <p class="small text-muted mb-0">Automatisch aus <code>content/stammbaum/</code> gerendert.</p>
+          <h1 class="h4 mb-0">Geräte-, Software-, Konsolen- und Reparatur-Stammbaum</h1>
+          <p class="small text-body-secondary mb-0">Automatisch aus <code>content/stammbaum/</code> gerendert. Neue Ordner werden neue Branches.</p>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Baumsteuerung">
           <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-first">Ersten Branch öffnen</button>
@@ -25,21 +25,30 @@ title: Dr.Debug Stammbaum
     </div>
   </section>
 
-  <aside class="col-12 col-xl-4">
+  <aside class="col-12 col-xxl-3">
     <div class="card border-info shadow-sm">
-      <div class="card-header bg-info-subtle fw-semibold">Strukturregeln</div>
+      <div class="card-header bg-info-subtle fw-semibold">v0.7 Strukturregeln</div>
       <div class="card-body small">
-        <p><strong>Geräte</strong> sind reale Geräte, Plattformen oder Komponenten.</p>
-        <p><strong>Software</strong> enthält Betriebssysteme, Systemsoftware, Tools, Spiele, Emulatoren und Mods.</p>
-        <p><strong>Relationen</strong> verbinden Geräte mit Betriebssystemen, Firmware, Tools, Spielen, Dumps oder Archivstatus.</p>
-        <p><strong>Ordnerregel:</strong> Jeder neue Ordner unter <code>content/stammbaum/</code> wird beim nächsten Build automatisch ein neuer Branch.</p>
+        <p><strong>Geräte</strong> sind reale Geräte, Plattformen, Komponenten oder Modellvarianten.</p>
+        <p><strong>Software</strong> enthält Betriebssysteme, Programme, Android-Apps, Systemsoftware, Spiele, Emulatoren und Analysewerkzeuge.</p>
+        <p><strong>Versioning</strong> hängt an konkreten Endpunkten: Windows-Versionen/Builds, Android <code>versionCode</code>/<code>versionName</code>, Konsolen-Firmware, Smartphone-Builds.</p>
+        <p><strong>Download-Links</strong> sind Metadaten-/Quellen-Records. Keine Firmware-, BIOS-, Installer-, ROM- oder Dump-Binärdateien werden rehosted.</p>
       </div>
     </div>
 
     <div class="card mt-3 shadow-sm">
-      <div class="card-header fw-semibold">Startzustand</div>
+      <div class="card-header fw-semibold">Wissensstand-Zähler</div>
       <div class="card-body small">
-        <p class="mb-0">Der Root-Branch ist sichtbar. Nur der erste Branch unter Root ist initial geöffnet; alle anderen Zweige starten mit <code>[+]</code>.</p>
+        <p>Die sichtbaren Zahlen sind nicht mehr Unterordner-Zähler. Sie sind als spätere Synchronisation aus <code>dr.debug-web</code> und <code>dr.debug-memory</code> vorbereitet.</p>
+        <p class="mb-0">Aktuell stehen neue Zähler auf <code>SYNC_PENDING</code> oder <code>0</code>, bis ein lokaler Repo-Scan ausgeführt wird.</p>
+      </div>
+    </div>
+
+    <div class="card mt-3 shadow-sm">
+      <div class="card-header fw-semibold">UI</div>
+      <div class="card-body small">
+        <p>Dark/Light-Mode wird über Bootstrap <code>data-bs-theme</code> gesteuert.</p>
+        <p>Branches zeigen <code>[+]</code> geschlossen und <code>[-]</code> geöffnet. Root ist sichtbar, nur der erste Branch ist initial geöffnet.</p>
       </div>
     </div>
   </aside>

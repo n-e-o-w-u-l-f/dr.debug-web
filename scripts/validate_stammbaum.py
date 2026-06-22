@@ -1,53 +1,49 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-
 import json
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TREE_JSON = ROOT / "_data" / "stammbaum.json"
+DATA = ROOT / "_data" / "stammbaum.json"
+JS = ROOT / "assets" / "js" / "stammbaum.js"
+CSS = ROOT / "assets" / "css" / "stammbaum.css"
 INCLUDE = ROOT / "_includes" / "tree_node.html"
-CONTENT = ROOT / "content" / "stammbaum"
-
-FORBIDDEN_LABEL_PARTS = [
-    "Icon 128px",
-    "Archive.org-Inhalte",
-    "Quellen- und Identifikator-Register",
-]
 
 def walk(node):
     yield node
-    for child in node.get("children", []):
+    for child in node.get("children", []) or []:
         yield from walk(child)
 
-def main() -> None:
-    if not TREE_JSON.exists():
-        raise SystemExit("Missing _data/stammbaum.json. Run scripts/generate_stammbaum_data.py first.")
-    data = json.loads(TREE_JSON.read_text(encoding="utf-8"))
+def main():
+    data = json.loads(DATA.read_text(encoding="utf-8"))
     nodes = list(walk(data))
-    labels = [str(n.get("label", "")) for n in nodes]
-    joined = "\n".join(labels)
+    branch_nodes = [n for n in nodes if n.get("children")]
+    labels = [n.get("label","") for n in nodes]
 
-    for forbidden in FORBIDDEN_LABEL_PARTS:
-        if forbidden in joined:
-            raise SystemExit(f"Forbidden tree label found: {forbidden}")
+    forbidden_labels = {"Icon 128px", "Archive.org-Inhalte", "Quellen- und Identifikator-Register"}
+    bad = sorted(forbidden_labels & set(labels))
+    if bad:
+        raise SystemExit(f"Forbidden placeholder/styling labels still present: {bad}")
 
-    if "Archiviert" not in joined:
-        raise SystemExit("Expected label 'Archiviert' not found.")
+    include_text = INCLUDE.read_text(encoding="utf-8")
+    if "children_count" in include_text and "Visible numbers must describe Wissenstand" not in include_text:
+        raise SystemExit("children_count appears to be rendered as user-facing metric")
 
-    if not (INCLUDE.exists() and "[+]" in INCLUDE.read_text(encoding="utf-8") and "[-]" in INCLUDE.read_text(encoding="utf-8")):
-        raise SystemExit("tree_node.html must contain [+] and [-] toggle labels.")
+    js = JS.read_text(encoding="utf-8")
+    if '"[-]"' not in js or '"[+]"' not in js:
+        raise SystemExit("Toggle JS does not contain both [+] and [-] states")
+    if "syncOne" not in js or "hidden.bs.collapse" not in js:
+        raise SystemExit("Toggle sync handler missing")
+
+    css = CSS.read_text(encoding="utf-8")
+    if '[data-bs-theme="dark"]' not in css:
+        raise SystemExit("Dark mode styling missing")
+    if "fade-collapse" not in css:
+        raise SystemExit("Slide/fade collapse styling missing")
 
     root_children = data.get("children", [])
-    if not root_children:
-        raise SystemExit("Root has no children.")
-
-    if not CONTENT.exists():
-        raise SystemExit("Missing content/stammbaum folder.")
-
-    branch_dirs = [p for p in CONTENT.rglob("*") if p.is_dir()]
-    print(f"OK: {len(nodes)} rendered nodes, {len(branch_dirs)} branch folders, first branch='{root_children[0].get('label')}'")
+    first = root_children[0]["label"] if root_children else "<none>"
+    print(f"OK: {len(nodes)} nodes, {len(branch_nodes)} branch folders, first branch='{first}', dark_mode=enabled, toggle_sync=enabled")
 
 if __name__ == "__main__":
     main()

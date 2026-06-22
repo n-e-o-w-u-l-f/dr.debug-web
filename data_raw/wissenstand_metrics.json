@@ -1,0 +1,58 @@
+{
+  "devices": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "software": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "error_codes": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "diagnostics": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "patches": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "sources": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  },
+  "archived": {
+    "drdebug_web": 0,
+    "drdebug_memory": 0,
+    "present_total": 0,
+    "missing_total": 0,
+    "status": "SYNC_PENDING",
+    "last_checked": null
+  }
+}
