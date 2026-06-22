@@ -1,0 +1,46 @@
+---
+layout: default
+title: Dr.Debug Stammbaum
+---
+
+<div class="row g-4">
+  <section class="col-12 col-xl-8">
+    <div class="card shadow-sm">
+      <div class="card-header d-flex flex-wrap align-items-center gap-2 justify-content-between">
+        <div>
+          <h1 class="h4 mb-0">Geräte-, Software- und Relations-Stammbaum</h1>
+          <p class="small text-muted mb-0">Automatisch aus <code>content/stammbaum/</code> gerendert.</p>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Baumsteuerung">
+          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-first">Ersten Branch öffnen</button>
+          <button class="btn btn-outline-secondary" type="button" data-tree-action="collapse-all">Alles zuklappen</button>
+          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-all">Alles aufklappen</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="tree-root list-unstyled mb-0">
+          {% include tree_node.html node=site.data.stammbaum id="root" open=true depth=0 %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <aside class="col-12 col-xl-4">
+    <div class="card border-info shadow-sm">
+      <div class="card-header bg-info-subtle fw-semibold">Strukturregeln</div>
+      <div class="card-body small">
+        <p><strong>Geräte</strong> sind reale Geräte, Plattformen oder Komponenten.</p>
+        <p><strong>Software</strong> enthält Betriebssysteme, Systemsoftware, Tools, Spiele, Emulatoren und Mods.</p>
+        <p><strong>Relationen</strong> verbinden Geräte mit Betriebssystemen, Firmware, Tools, Spielen, Dumps oder Archivstatus.</p>
+        <p><strong>Ordnerregel:</strong> Jeder neue Ordner unter <code>content/stammbaum/</code> wird beim nächsten Build automatisch ein neuer Branch.</p>
+      </div>
+    </div>
+
+    <div class="card mt-3 shadow-sm">
+      <div class="card-header fw-semibold">Startzustand</div>
+      <div class="card-body small">
+        <p class="mb-0">Der Root-Branch ist sichtbar. Nur der erste Branch unter Root ist initial geöffnet; alle anderen Zweige starten mit <code>[+]</code>.</p>
+      </div>
+    </div>
+  </aside>
+</div>

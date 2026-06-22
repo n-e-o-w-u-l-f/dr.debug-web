@@ -1,0 +1,62 @@
+{%- assign node = include.node -%}
+{%- assign node_id = include.id | default: "root" -%}
+{%- assign is_open = include.open | default: false -%}
+{%- assign depth = include.depth | default: 0 -%}
+{%- assign has_children = false -%}
+{%- if node.children and node.children.size > 0 -%}
+  {%- assign has_children = true -%}
+{%- endif -%}
+
+<li class="tree-node depth-{{ depth }}" data-node-kind="{{ node.node_kind | default: 'branch_or_endpoint' }}">
+  <div class="tree-row d-flex align-items-start gap-2 py-1">
+    {%- if has_children -%}
+      <button
+        class="tree-toggle btn btn-sm btn-outline-secondary font-monospace"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#children-{{ node_id }}"
+        aria-controls="children-{{ node_id }}"
+        aria-expanded="{% if is_open %}true{% else %}false{% endif %}">
+        {% if is_open %}[-]{% else %}[+]{% endif %}
+      </button>
+    {%- else -%}
+      <span class="tree-leaf-spacer font-monospace text-muted">•</span>
+    {%- endif -%}
+
+    <div class="tree-label flex-grow-1">
+      <span class="fw-semibold">{{ node.label }}</span>
+      {%- if node.count != nil -%}
+        <span class="badge text-bg-light border ms-1">{{ node.count }}</span>
+      {%- endif -%}
+      {%- if node.status -%}
+        <span class="badge text-bg-warning ms-1">{{ node.status }}</span>
+      {%- endif -%}
+      {%- if node.node_kind == "relation" -%}
+        <span class="badge text-bg-info ms-1">Relation</span>
+      {%- endif -%}
+      {%- if node.children_count -%}
+        <span class="badge text-bg-secondary ms-1">{{ node.children_count }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if has_children -%}
+    <ul id="children-{{ node_id }}" class="tree-children collapse{% if is_open %} show{% endif %}">
+      {%- for child in node.children -%}
+        {%- assign child_id = node_id | append: "-" | append: forloop.index0 -%}
+        {%- assign child_open = false -%}
+        {%- comment -%}
+          Initial state:
+          - root is open
+          - only the first branch below root is open
+          - all deeper branches start collapsed
+        {%- endcomment -%}
+        {%- if node_id == "root" and forloop.first -%}
+          {%- assign child_open = true -%}
+        {%- endif -%}
+        {%- assign next_depth = depth | plus: 1 -%}
+        {%- include tree_node.html node=child id=child_id open=child_open depth=next_depth -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</li>

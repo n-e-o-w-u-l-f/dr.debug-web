@@ -1,0 +1,44 @@
+.tree-root,
+.tree-children {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.tree-children {
+  margin-left: 1.25rem;
+  padding-left: .75rem;
+  border-left: 1px solid var(--bs-border-color);
+}
+
+.tree-row {
+  border-radius: .375rem;
+}
+
+.tree-row:hover {
+  background: var(--bs-tertiary-bg);
+}
+
+.tree-toggle {
+  min-width: 3.25rem;
+  line-height: 1.1;
+}
+
+.tree-leaf-spacer {
+  display: inline-block;
+  min-width: 3.25rem;
+  text-align: center;
+  padding-top: .25rem;
+}
+
+.tree-label {
+  word-break: break-word;
+}
+
+.tree-node[data-node-kind="relation"] > .tree-row .tree-label {
+  font-style: italic;
+}
+
+.depth-0 > .tree-row .tree-label {
+  font-size: 1.05rem;
+}

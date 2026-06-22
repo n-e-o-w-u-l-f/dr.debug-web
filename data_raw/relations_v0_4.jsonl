@@ -1,0 +1,13 @@
+{"from": "device.samsung.galaxy_s23", "relation": "has_model", "status": "PROPOSAL_ONLY", "to": "model.samsung.galaxy_s23.sm_s911b"}
+{"from": "model.samsung.galaxy_s23.sm_s911b", "relation": "has_firmware_version", "status": "PROPOSAL_ONLY", "to": "firmware.samsung.sm_s911b.s911bxxs9ezc1.mob"}
+{"from": "model.samsung.galaxy_s23.sm_s911b", "relation": "has_firmware_version", "status": "PROPOSAL_ONLY", "to": "firmware.samsung.sm_s911b.s911bxxsafze1.com"}
+{"from": "model.samsung.galaxy_s23.sm_s911b", "relation": "has_firmware_version", "status": "PROPOSAL_ONLY", "to": "firmware.samsung.sm_s911b.s911bxxu8dyd9.btb"}
+{"from": "firmware.samsung.sm_s911b.s911bxxs9ezc1.mob", "relation": "has_dump_metadata_source", "risk": "HIGH_RISK_BINARY_REFERENCE", "status": "PROPOSAL_ONLY", "to": "src.samfw.sm_s911b.mob.s911bxxs9ezc1"}
+{"from": "firmware.samsung.sm_s911b.s911bxxsafze1.com", "relation": "has_dump_metadata_source", "risk": "HIGH_RISK_BINARY_REFERENCE", "status": "PROPOSAL_ONLY", "to": "src.samfw.sm_s911b.com.s911bxxsafze1"}
+{"from": "firmware.samsung.sm_s911b.s911bxxu8dyd9.btb", "relation": "has_dump_metadata_source", "risk": "HIGH_RISK_BINARY_REFERENCE", "status": "PROPOSAL_ONLY", "to": "src.samfrew.sm_s911b.btb.s911bxxu8dyd9"}
+{"from": "device.samsung.galaxy_s23", "relation": "runs_os_family", "status": "PROPOSAL_ONLY", "to": "os.android"}
+{"from": "device.samsung.galaxy_s23", "relation": "uses_software_ui", "status": "PROPOSAL_ONLY", "to": "software.samsung.one_ui"}
+{"from": "device.samsung.galaxy_s23", "relation": "official_update_tool", "status": "PROPOSAL_ONLY", "to": "software.samsung.smart_switch"}
+{"from": "Geräte/PC", "relation": "compatible_with_os_family", "status": "STRUCTURE_RULE", "to": "Software/Betriebssysteme/Desktop-und-PC"}
+{"from": "Geräte/PC", "relation": "uses_software_category", "status": "STRUCTURE_RULE", "to": "Software/Anwendungen-und-Tools"}
+{"from": "Geräte/Retro", "limitation": "ROM/Dump records store metadata only, not copyrighted ROM binaries.", "relation": "uses_software_category", "status": "STRUCTURE_RULE", "to": "Software/Gaming-und-Emulation"}

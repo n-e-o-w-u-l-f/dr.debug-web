@@ -1,0 +1,19 @@
+title: Dr.Debug Stammbaum
+description: Automatisch erweiterbarer Jekyll-Baum für Geräte, Software und Relationen.
+lang: de
+baseurl: ""
+url: ""
+
+stammbaum:
+  root_dir: content/stammbaum
+  initial_open: first_branch_only
+
+exclude:
+  - README.md
+  - MANIFEST.json
+  - SHA256SUMS.txt
+  - scripts/
+  - data_raw/
+  - docs/
+  - Gemfile
+  - Gemfile.lock
