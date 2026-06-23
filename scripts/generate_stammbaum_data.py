@@ -66,6 +66,26 @@ def build_node(folder: Path, path_parts: list[str] | None = None) -> dict[str, A
     for key in passthrough:
         if key in meta:
             node[key] = meta[key]
+    icon_file = folder / "Icon.png"
+    content_file = folder / "CONTENT.md"
+
+    branch_web_path = str(node.get("path", "")).strip("/")
+    if branch_web_path == "stammbaum":
+        branch_web_path = ""
+    elif branch_web_path.startswith("stammbaum/"):
+        branch_web_path = branch_web_path[len("stammbaum/"):]
+
+    branch_web_base = "/content/stammbaum"
+    if branch_web_path:
+        branch_web_base = f"{branch_web_base}/{branch_web_path}"
+
+    if icon_file.exists():
+        node["icon"] = f"{branch_web_base}/Icon.png"
+
+    if content_file.exists():
+        node["has_content"] = True
+        node["content_path"] = f"{branch_web_base}/CONTENT.md"
+
     children = [build_node(child, path_parts + [folder.name]) for child in child_dirs(folder)]
     if children:
         node["children"] = children
@@ -73,12 +93,51 @@ def build_node(folder: Path, path_parts: list[str] | None = None) -> dict[str, A
         node["children_count"] = len(children)
     return node
 
+def count_nodes(node: Any) -> int:
+    """Count tree nodes in generated or existing Stammbaum JSON."""
+    if isinstance(node, dict):
+        return 1 + sum(count_nodes(child) for child in node.get("children", []) or [])
+    if isinstance(node, list):
+        return sum(count_nodes(item) for item in node)
+    return 0
+
+
+def write_output_with_shrink_guard(data: dict[str, Any]) -> None:
+    """Write _data/stammbaum.json only when generation does not dangerously shrink it.
+
+    The local content/stammbaum tree can be incomplete compared with the committed
+    generated data. Without this guard, a local partial checkout or incomplete
+    seed run can accidentally replace thousands of existing nodes with a tiny tree.
+    Use --force only after intentionally accepting that shrink.
+    """
+    new_text = json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+    new_count = count_nodes(data)
+
+    if OUT.exists():
+        try:
+            existing_data = json.loads(OUT.read_text(encoding="utf-8"))
+            existing_count = count_nodes(existing_data)
+        except json.JSONDecodeError:
+            existing_count = 0
+
+        shrink_limit = max(10, int(existing_count * 0.8))
+        if existing_count >= 100 and new_count < shrink_limit:
+            raise SystemExit(
+                "Refusing to overwrite "
+                f"{OUT.relative_to(ROOT)}: generated {new_count} nodes, "
+                f"existing file has {existing_count} nodes. "
+                "This looks like dangerous Stammbaum data shrink. "
+                "Restore missing content/stammbaum sources or intentionally edit the guard."
+            )
+
+    OUT.write_text(new_text, encoding="utf-8")
+
 def main() -> None:
     if not TREE_ROOT.exists():
         raise SystemExit(f"Missing tree root: {TREE_ROOT}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     data = build_node(TREE_ROOT, [])
-    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_output_with_shrink_guard(data)
     print(f"wrote {OUT.relative_to(ROOT)}")
 
 if __name__ == "__main__":

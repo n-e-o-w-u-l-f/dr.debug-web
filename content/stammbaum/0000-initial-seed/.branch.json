@@ -1,0 +1,13 @@
+{
+  "label": "Initial Seed",
+  "order": 0,
+  "node_kind": "proposal_seed_root",
+  "status": "PROPOSAL_ONLY",
+  "source_status": "NOT_RESEARCHED",
+  "relation_type": "seed_planning",
+  "present_total": 0,
+  "missing_total": 1000,
+  "proposal_only_total": 1000,
+  "canonical_total": 0,
+  "last_checked": "2026-06-23"
+}

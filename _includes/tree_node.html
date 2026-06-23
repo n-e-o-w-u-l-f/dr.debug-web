@@ -25,7 +25,7 @@
     {%- endif -%}
 
     <div class="tree-label flex-grow-1">
-      <span class="fw-semibold">{{ node.label }}</span>
+      <span class="fw-semibold">{%- if node.icon -%}<img src="{{ node.icon | relative_url }}" alt="" class="tree-node-icon" loading="lazy" style="width:1.15em;height:1.15em;object-fit:contain;vertical-align:-0.18em;margin-inline-end:0.25em;"> {%- endif -%}{{ node.label }}{%- if node.has_content -%} <span class="tree-node-content" title="CONTENT.md vorhanden" aria-label="CONTENT.md vorhanden">📄</span>{%- endif -%}</span>
 
       {%- comment -%}
         Important: children_count is internal only.
