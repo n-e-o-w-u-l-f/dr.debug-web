@@ -1,0 +1,61 @@
+{
+  "policy_id": "drdebug_web_write_policy",
+  "version": "0.1.0",
+  "status": "proposal_active_contract",
+  "repo": "n-e-o-w-u-l-f/dr.debug-web",
+  "purpose": "Allow structured public-web proposal, queue and rendering artifacts while preventing unsafe generated-data loss.",
+  "customer_mode_allowed_paths": [
+    "docs/drdebug/**",
+    "content/stammbaum/**",
+    "MANUAL/_QUEUE/**",
+    "SOURCE_RECORDS/_QUEUE/**",
+    "POLICY/**"
+  ],
+  "owner_admin_mode_allowed_paths": [
+    "AGENTS.md",
+    "README.md",
+    "_includes/**",
+    "_layouts/**",
+    "_data/**",
+    "assets/**",
+    "scripts/**",
+    "content/stammbaum/**",
+    "docs/drdebug/**",
+    "MANUAL/_QUEUE/**",
+    "SOURCE_RECORDS/_QUEUE/**",
+    "POLICY/**"
+  ],
+  "protected_generated_paths": [
+    "_data/stammbaum.json"
+  ],
+  "denied_paths": [
+    ".github/**",
+    ".git/**",
+    "secrets/**",
+    "**/.env",
+    "**/*token*",
+    "**/*secret*",
+    "**/*password*",
+    "MANUAL/**/*.pdf",
+    "SOURCE_RECORDS/**/*.exe",
+    "SOURCE_RECORDS/**/*.msi",
+    "SOURCE_RECORDS/**/*.bin",
+    "SOURCE_RECORDS/**/*.rom",
+    "SOURCE_RECORDS/**/*.fw",
+    "SOURCE_RECORDS/**/*.zip"
+  ],
+  "requires": [
+    "verified_repo_remote",
+    "target_path",
+    "reason",
+    "dry_run_before_write",
+    "no_generated_data_shrink",
+    "no_blind_binary_download",
+    "github_pages_render_target_respected"
+  ],
+  "notes": [
+    "Local Jekyll is optional unless explicitly confirmed by the user.",
+    "GitHub Pages is the render validator for this repository unless otherwise specified.",
+    "This file is a repository policy contract; admin_api must enforce it to affect tool writes."
+  ]
+}
