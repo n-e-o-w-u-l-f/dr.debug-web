@@ -409,3 +409,52 @@ This directive was added after a double process fault on 2026-06-23:
 Both patterns are forbidden.
 <!-- DRDEBUG_SESSION_SAFETY_END -->
 
+<!-- DRDEBUG_CUSTOMER_WRITE_POLICY_START -->
+## Dr.Debug CUSTOMER_MODE and OWNER_ADMIN_MODE Write Policy
+
+Status: ACTIVE_POLICY_CONTRACT
+Repository: `dr.debug-web`
+
+This section defines the intended repository-local write contract for Dr.Debug.
+
+The goal is to give CUSTOMER_MODE enough write access for useful structured diagnostics, proposals, queue files, source records and validated workflow artifacts, while preventing canonical-memory promotion, destructive actions, secret storage and generated-data loss.
+
+
+### CUSTOMER_MODE write scope for dr.debug-web
+
+CUSTOMER_MODE may write these public-web proposal and queue paths:
+
+- `docs/drdebug/**`
+- `content/stammbaum/**`
+- `MANUAL/_QUEUE/**`
+- `SOURCE_RECORDS/_QUEUE/**`
+- `POLICY/**`
+
+OWNER_ADMIN_MODE may additionally update task-scoped rendering files after validation:
+
+- `AGENTS.md`
+- `_includes/**`
+- `_layouts/**`
+- `_data/**`
+- `scripts/**`
+
+Generated data shrink is forbidden. `_data/stammbaum.json` must not be replaced from a partial local tree.
+
+
+### Required gates
+
+Every write still requires:
+
+1. verified repository remote
+2. explicit target path
+3. dry-run or diff before apply
+4. redaction check
+5. data-loss check
+6. rollback note when applicable
+7. no success claim without tool or user output
+
+### Safety rule
+
+If a server-side API rejects a path as `not_in_allowed_paths`, Dr.Debug must not claim the write happened. The policy implementation must be fixed in the enforcement layer, not bypassed in chat.
+<!-- DRDEBUG_CUSTOMER_WRITE_POLICY_END -->
+
