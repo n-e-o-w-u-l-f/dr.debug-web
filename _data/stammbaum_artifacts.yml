@@ -1,0 +1,14 @@
+# Generated/maintained metadata for branch artifact previews.
+# Canonical text knowledge remains in dr.debug-memory.
+# This file is a render index, not a second truth.
+
+examples:
+  - label: Beispiel übersetztes Manual
+    filename: ACME_DEVICE_MODEL_ES.pdf
+    type: pdf
+    repo: dr.debug-web
+    path: _stammbaum/ACME/DEVICE/MODEL/manuals/translated/ACME_DEVICE_MODEL_ES.pdf
+    github_url: https://github.com/n-e-o-w-u-l-f/dr.debug-web/blob/main/_stammbaum/ACME/DEVICE/MODEL/manuals/translated/ACME_DEVICE_MODEL_ES.pdf
+    preview: true
+    status: example_only
+    source_memory_record: MEMORY/MANUALS/EXAMPLE.md

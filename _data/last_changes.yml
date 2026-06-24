@@ -1,0 +1,19 @@
+last_changes:
+  - date: 2026-06-24
+    repo: dr.debug-memory
+    path: MEMORY/PROPOSALS/2026-06-24-stammbaum-v0-13-web-renderer-readme-policy-addendum.md
+    action: proposed
+    commit: 9cdff63
+    summary: "Web-Renderer-/README-Policy als Memory-Proposal dokumentiert."
+  - date: 2026-06-24
+    repo: dr.debug-memory
+    path: MEMORY/PROPOSALS/2026-06-24-stammbaum-v0-13-electronics-memory-web-proposal.md
+    action: proposed
+    commit: 97cf502
+    summary: "Stammbaum v0.13 Memory/Web-Zielstruktur als Proposal gespeichert."
+  - date: 2026-06-24
+    repo: dr.debug-web
+    path: index.html
+    action: proposed
+    commit: ""
+    summary: "Patch-Bundle ersetzt alten v0.7-Block durch README-Renderer."
