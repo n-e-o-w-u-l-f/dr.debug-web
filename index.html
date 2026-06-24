@@ -3,53 +3,24 @@ layout: default
 title: Dr.Debug Stammbaum
 ---
 
-<div class="row g-4">
-  <section class="col-12 col-xxl-9">
-    <div class="card shadow-sm tree-card">
-      <div class="card-header d-flex flex-wrap align-items-center gap-2 justify-content-between">
-        <div>
-          <h1 class="h4 mb-0">Geräte-, Software-, Konsolen- und Reparatur-Stammbaum</h1>
-          <p class="small text-body-secondary mb-0">Automatisch aus <code>content/stammbaum/</code> gerendert. Neue Ordner werden neue Branches.</p>
-        </div>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Baumsteuerung">
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-first">Ersten Branch öffnen</button>
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="collapse-all">Alles zuklappen</button>
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-all">Alles aufklappen</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <ul class="tree-root list-unstyled mb-0">
-          {% include tree_node.html node=site.data.stammbaum id="root" open=true depth=0 %}
-        </ul>
-      </div>
-    </div>
-  </section>
+<section class="dd-hero mb-4">
+  <p class="dd-kicker">Dr.Debug Webviewpoint</p>
+  <h1>🛠️ Geräte-, Software-, Konsolen- und Reparatur-Stammbaum</h1>
+  <p class="lead">
+    Der Stammbaum startet geschlossen. Öffne genau den Branch, den du ansehen möchtest:
+    Dr.Debug zeigt dann Dateien, Vorschauen und Links zu <code>dr.debug-web</code> und <code>dr.debug-memory</code>.
+  </p>
+</section>
 
-  <aside class="col-12 col-xxl-3">
-    <div class="card border-info shadow-sm">
-      <div class="card-header bg-info-subtle fw-semibold">v0.7 Strukturregeln</div>
-      <div class="card-body small">
-        <p><strong>Geräte</strong> sind reale Geräte, Plattformen, Komponenten oder Modellvarianten.</p>
-        <p><strong>Software</strong> enthält Betriebssysteme, Programme, Android-Apps, Systemsoftware, Spiele, Emulatoren und Analysewerkzeuge.</p>
-        <p><strong>Versioning</strong> hängt an konkreten Endpunkten: Windows-Versionen/Builds, Android <code>versionCode</code>/<code>versionName</code>, Konsolen-Firmware, Smartphone-Builds.</p>
-        <p><strong>Download-Links</strong> sind Metadaten-/Quellen-Records. Keine Firmware-, BIOS-, Installer-, ROM- oder Dump-Binärdateien werden rehosted.</p>
-      </div>
-    </div>
+<section class="dd-toolbar mb-3" aria-label="Stammbaum Steuerung">
+  <button class="btn btn-outline-light btn-sm" type="button" data-dd-action="collapse-all">Alles zuklappen</button>
+  <button class="btn btn-outline-info btn-sm" type="button" data-dd-action="focus-readme">README anzeigen</button>
+</section>
 
-    <div class="card mt-3 shadow-sm">
-      <div class="card-header fw-semibold">Wissensstand-Zähler</div>
-      <div class="card-body small">
-        <p>Die sichtbaren Zahlen sind nicht mehr Unterordner-Zähler. Sie sind als spätere Synchronisation aus <code>dr.debug-web</code> und <code>dr.debug-memory</code> vorbereitet.</p>
-        <p class="mb-0">Aktuell stehen neue Zähler auf <code>SYNC_PENDING</code> oder <code>0</code>, bis ein lokaler Repo-Scan ausgeführt wird.</p>
-      </div>
-    </div>
+<section id="dd-stammbaum" class="dd-tree-shell" aria-label="Dr.Debug Stammbaum">
+  {% include tree_node.html node=site.data.stammbaum id="root" open=false depth=0 %}
+</section>
 
-    <div class="card mt-3 shadow-sm">
-      <div class="card-header fw-semibold">UI</div>
-      <div class="card-body small">
-        <p>Dark/Light-Mode wird über Bootstrap <code>data-bs-theme</code> gesteuert.</p>
-        <p>Branches zeigen <code>[+]</code> geschlossen und <code>[-]</code> geöffnet. Root ist sichtbar, nur der erste Branch ist initial geöffnet.</p>
-      </div>
-    </div>
-  </aside>
-</div>
+<section id="dd-readme-renderer" class="dd-readme-renderer mt-4" aria-label="Gerenderte README">
+  {% include readme_renderer.html source="auto" %}
+</section>

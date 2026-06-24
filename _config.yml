@@ -1,19 +1,40 @@
-title: Dr.Debug Stammbaum v0.6
-description: Automatisch erweiterbarer Jekyll-Baum für Geräte, Software, Firmware, Dumps und Relationen.
+title: Dr.Debug Stammbaum
+description: Menschlich lesbarer Webviewpoint für Dr.Debug-MEMORY, Stammbaum-Endpunkte und Render-Artefakte.
 lang: de
 baseurl: ""
 url: ""
 
+markdown: kramdown
+
 stammbaum:
   root_dir: content/stammbaum
-  initial_open: first_branch_only
+  initial_open: none
+  categories_default: collapsed
+  root_visible: true
+  first_branch_open: false
+  hide_obstructing_siblings: true
+  preview:
+    pdf: true
+    nfo: true
+    diz: true
+  exclude:
+    - README.md
+    - MANIFEST.json
+    - SHA256SUMS.txt
+    - scripts/
+    - data_raw/
+    - docs/
+    - Gemfile
+    - Gemfile.lock
 
-exclude:
-  - README.md
-  - MANIFEST.json
-  - SHA256SUMS.txt
-  - scripts/
-  - data_raw/
-  - docs/
-  - Gemfile
-  - Gemfile.lock
+collections:
+  stammbaum:
+    output: true
+    permalink: /stammbaum/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "stammbaum"
+    values:
+      layout: stammbaum_endpoint

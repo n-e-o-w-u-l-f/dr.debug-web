@@ -1,25 +1,39 @@
-# Dr.Debug Web
+# 🛠️ Dr.Debug Web
+
+Willkommen im Webviewpoint von Dr.Debug.  
+Dieses Repository zeigt Inhalte an, die in `dr.debug-memory` vorbereitet, verlinkt oder quellenbasiert gepflegt werden.
+
+## 📊 Wissenstand
+
+<!-- DRDEBUG_DATABASE_STATUS_START -->
+| Area | Status | Count / Result | Last checked | Notes |
+|---|---|---:|---|---|
+| Stammbaum Renderer | PROPOSAL_PATCH_READY | 1 bundle | 2026-06-24 | JavaFX-inspirierte Bootstrap/Jekyll UI als Patch-Bundle vorbereitet. |
+| Web artifacts | COUNT_SCAN_REQUIRED | 0 | 2026-06-24 | Nach echtem Write lokal scannen und Markerblock aktualisieren. |
+| Memory links | COUNT_SCAN_REQUIRED | 0 | 2026-06-24 | Links zu `dr.debug-memory` nach Import prüfen. |
+<!-- DRDEBUG_DATABASE_STATUS_END -->
 
 ## Was ist dieses Repository?
 
-Dieses Repository ist der Website-Bereich von Dr.Debug.
+`dr.debug-web` ist die menschlich sichtbare Seite von Dr.Debug.  
+Hier sollen Branches, Artefakte, PDF-Vorschauen, NFO-/DIZ-Texte, kleine Script-Fenster und README-Renderer freundlich angezeigt werden.
 
-Hier sollen ausgewählte Inhalte, Bilder, Symbole, Screenshots, NFO-Texte und Seitenstrukturen für Menschen sichtbar gemacht werden.
+## Was bleibt in Dr.Debug-MEMORY?
 
-## Kurz gesagt
+`dr.debug-memory` bleibt die textbasierte Wissensdatenbank: Markdown, Specs, Quellen, Diagnosen, Datenblatt-Metadaten, Proposals und geprüfte Workflows.
 
-- `dr.debug-web` zeigt Inhalte an.
-- `dr.debug-memory` bleibt die technische Wissensbasis.
-- `dr.debug-agents` beschreibt die Agentenregeln.
-- `dr.debug-admin_api` vermittelt kontrollierte Schreibaktionen.
+## Sicherheitsnotiz
 
-## Wichtige Bereiche
+Dieses Web-Repo rendert Inhalte. Es ist keine Garantie, dass ein Gerät gefahrlos repariert werden kann.  
+Bei Netzspannung, Akkus, Hochvolt, Fahrzeugen, Firmware-Flashs, Router-/Firewall-Änderungen oder Sicherheitsvorfällen gilt: erst prüfen, sichern, redigieren, dann handeln.
 
-- `CONTENT/` enthält Website-Texte.
-- `DATA/` enthält Render-Hinweise und Verweise.
-- `RENDERER/` enthält Werkzeuge für die Seitenerzeugung.
-- `PUBLIC/` enthält öffentliche Assets.
+## Für Agenten
 
-## Grenze
+Agenten sollen Web-Inhalte nicht als zweite Wahrheit behandeln.  
+Wenn ein Fakt technisch relevant ist, gehört der kanonische oder proposal-basierte Text nach `dr.debug-memory`; dieses Repo verlinkt und rendert.
 
-Dieses Repository ist nicht die zentrale Wissensdatenbank. Technische Fakten sollen aus `dr.debug-memory` kommen und hier nur verständlich dargestellt werden.
+## 📰 Last Changes
+
+- 2026-06-24 — PROPOSED — Stammbaum-Webrenderer-Patch vorbereitet.
+- 2026-06-24 — PROPOSED — README-Renderer ersetzt geplanten Block ab `v0.7 Strukturregeln`.
+- 2026-06-24 — PROPOSED — PDF/NFO/DIZ-Hover-Preview spezifiziert.
