@@ -3,44 +3,24 @@ layout: default
 title: Dr.Debug Stammbaum
 ---
 
-<div class="row g-4">
-  <section class="col-12 col-xl-8">
-    <div class="card shadow-sm">
-      <div class="card-header d-flex flex-wrap align-items-center gap-2 justify-content-between">
-        <div>
-          <h1 class="h4 mb-0">Geräte-, Software- und Relations-Stammbaum</h1>
-          <p class="small text-muted mb-0">Automatisch aus <code>content/stammbaum/</code> gerendert.</p>
-        </div>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Baumsteuerung">
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-first">Ersten Branch öffnen</button>
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="collapse-all">Alles zuklappen</button>
-          <button class="btn btn-outline-secondary" type="button" data-tree-action="expand-all">Alles aufklappen</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <ul class="tree-root list-unstyled mb-0">
-          {% include tree_node.html node=site.data.stammbaum id="root" open=true depth=0 %}
-        </ul>
-      </div>
-    </div>
-  </section>
+<section class="dd-hero mb-4">
+  <p class="dd-kicker">Dr.Debug Webviewpoint</p>
+  <h1>🛠️ Geräte-, Software-, Konsolen- und Reparatur-Stammbaum</h1>
+  <p class="lead">
+    Der Stammbaum startet geschlossen. Öffne genau den Branch, den du ansehen möchtest:
+    Dr.Debug zeigt dann Dateien, Vorschauen und Links zu <code>dr.debug-web</code> und <code>dr.debug-memory</code>.
+  </p>
+</section>
 
-  <aside class="col-12 col-xl-4">
-    <div class="card border-info shadow-sm">
-      <div class="card-header bg-info-subtle fw-semibold">Strukturregeln</div>
-      <div class="card-body small">
-        <p><strong>Geräte</strong> sind reale Geräte, Plattformen oder Komponenten.</p>
-        <p><strong>Software</strong> enthält Betriebssysteme, Systemsoftware, Tools, Spiele, Emulatoren und Mods.</p>
-        <p><strong>Relationen</strong> verbinden Geräte mit Betriebssystemen, Firmware, Tools, Spielen, Dumps oder Archivstatus.</p>
-        <p><strong>Ordnerregel:</strong> Jeder neue Ordner unter <code>content/stammbaum/</code> wird beim nächsten Build automatisch ein neuer Branch.</p>
-      </div>
-    </div>
+<section class="dd-toolbar mb-3" aria-label="Stammbaum Steuerung">
+  <button class="btn btn-outline-light btn-sm" type="button" data-dd-action="collapse-all">Alles zuklappen</button>
+  <button class="btn btn-outline-info btn-sm" type="button" data-dd-action="focus-readme">README anzeigen</button>
+</section>
 
-    <div class="card mt-3 shadow-sm">
-      <div class="card-header fw-semibold">Startzustand</div>
-      <div class="card-body small">
-        <p class="mb-0">Der Root-Branch ist sichtbar. Nur der erste Branch unter Root ist initial geöffnet; alle anderen Zweige starten mit <code>[+]</code>.</p>
-      </div>
-    </div>
-  </aside>
-</div>
+<section id="dd-stammbaum" class="dd-tree-shell" aria-label="Dr.Debug Stammbaum">
+  {% include tree_node.html node=site.data.stammbaum id="root" open=false depth=0 %}
+</section>
+
+<section id="dd-readme-renderer" class="dd-readme-renderer mt-4" aria-label="Gerenderte README">
+  {% include readme_renderer.html source="auto" %}
+</section>
