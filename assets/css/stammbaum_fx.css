@@ -1,0 +1,290 @@
+/* Dr.Debug Stammbaum FX — JavaFX-inspirierte Bootstrap/Jekyll UI */
+
+:root {
+  --dd-bg: #0c111b;
+  --dd-card: rgba(20, 28, 44, .92);
+  --dd-card-active: rgba(21, 41, 69, .98);
+  --dd-border: rgba(148, 163, 184, .28);
+  --dd-text: #e5edf8;
+  --dd-muted: #9fb0c7;
+  --dd-accent: #55d4ff;
+  --dd-accent-2: #91ffcf;
+  --dd-shadow: 0 18px 60px rgba(0,0,0,.35);
+  --dd-radius: 1.1rem;
+}
+
+.dd-body {
+  background:
+    radial-gradient(circle at top left, rgba(85, 212, 255, .12), transparent 32rem),
+    radial-gradient(circle at top right, rgba(145, 255, 207, .10), transparent 28rem),
+    var(--dd-bg);
+  color: var(--dd-text);
+}
+
+.dd-site-header {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+
+.dd-brand {
+  color: var(--dd-text);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.dd-hero, .dd-readme-box {
+  background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: 1.4rem;
+  box-shadow: var(--dd-shadow);
+}
+
+.dd-kicker {
+  color: var(--dd-accent);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .78rem;
+  margin-bottom: .25rem;
+}
+
+.dd-tree-shell {
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: 1rem;
+  background: rgba(5, 10, 18, .45);
+  overflow: clip;
+}
+
+.dd-node-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.dd-node-list-root {
+  padding-left: 0;
+}
+
+.dd-node {
+  margin: .55rem 0;
+}
+
+.dd-node-card {
+  position: relative;
+  border: 1px solid var(--dd-border);
+  background: var(--dd-card);
+  border-radius: var(--dd-radius);
+  padding: .8rem;
+  box-shadow: 0 8px 26px rgba(0,0,0,.20);
+  transform-origin: center;
+  transition:
+    transform .28s ease,
+    opacity .22s ease,
+    max-height .35s ease,
+    box-shadow .28s ease,
+    background-color .28s ease;
+}
+
+.dd-node-card.is-active {
+  background: var(--dd-card-active);
+  transform: scale(1.025);
+  z-index: 20;
+  box-shadow: 0 22px 70px rgba(0,0,0,.42);
+}
+
+.dd-node-card.is-sibling-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(var(--dd-slide-away, 1.5rem)) scale(.96);
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.dd-node-header {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+}
+
+.dd-node-toggle {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--dd-border);
+  border-radius: 999px;
+  background: rgba(85,212,255,.10);
+  color: var(--dd-text);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.dd-node-toggle:hover,
+.dd-node-toggle:focus-visible {
+  outline: 2px solid var(--dd-accent);
+  outline-offset: 2px;
+}
+
+.dd-chevron {
+  display: inline-block;
+  transition: transform .25s ease;
+  font-weight: 900;
+}
+
+.dd-node-card.is-active > .dd-node-header .dd-chevron {
+  transform: rotate(90deg);
+}
+
+.dd-leaf-dot {
+  color: var(--dd-accent-2);
+  width: 2rem;
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+.dd-node-title {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  margin: 0;
+}
+
+.dd-node-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-top: .3rem;
+}
+
+.dd-node-content {
+  margin-top: .9rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--dd-border);
+}
+
+.dd-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, .8fr);
+  gap: 1rem;
+}
+
+.dd-github-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.dd-artifact-panel {
+  border: 1px dashed var(--dd-border);
+  border-radius: .85rem;
+  padding: .8rem;
+  background: rgba(0,0,0,.16);
+}
+
+.dd-artifact-list {
+  margin: .4rem 0 0 0;
+  padding-left: 1.1rem;
+}
+
+.dd-artifact-link {
+  color: var(--dd-accent-2);
+}
+
+.dd-artifact-preview {
+  margin-top: .8rem;
+  border: 1px solid var(--dd-border);
+  border-radius: .8rem;
+  background: #050914;
+  overflow: hidden;
+  transform-origin: top;
+  animation: ddPreviewIn .22s ease both;
+}
+
+.dd-preview-title {
+  padding: .45rem .65rem;
+  border-bottom: 1px solid var(--dd-border);
+  color: var(--dd-accent);
+  font-weight: 700;
+}
+
+.dd-preview-body {
+  max-height: 28rem;
+  overflow: auto;
+}
+
+.dd-preview-body iframe,
+.dd-preview-body object {
+  width: 100%;
+  min-height: 26rem;
+  border: 0;
+  background: white;
+}
+
+.dd-preview-body pre {
+  margin: 0;
+  padding: .85rem;
+  color: #d7ffb7;
+  background: #050914;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  white-space: pre-wrap;
+}
+
+.dd-readme-renderer {
+  scroll-margin-top: 1rem;
+}
+
+.dd-readme-body {
+  color: var(--dd-text);
+  line-height: 1.65;
+}
+
+.dd-readme-body code {
+  color: #b9f6ca;
+}
+
+.dd-readme-body pre {
+  background: #050914;
+  border: 1px solid var(--dd-border);
+  border-radius: .8rem;
+  padding: .9rem;
+  overflow: auto;
+}
+
+.dd-last-changes {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--dd-border);
+  padding-top: 1rem;
+}
+
+.dd-last-changes-list {
+  display: grid;
+  gap: .35rem;
+  padding-left: 1.35rem;
+}
+
+.dd-muted {
+  color: var(--dd-muted);
+}
+
+@keyframes ddPreviewIn {
+  from { opacity: 0; transform: translateY(-.35rem) scaleY(.96); }
+  to { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+@media (max-width: 768px) {
+  .dd-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-node-card,
+  .dd-chevron,
+  .dd-artifact-preview {
+    transition: none !important;
+    animation: none !important;
+  }
+}
