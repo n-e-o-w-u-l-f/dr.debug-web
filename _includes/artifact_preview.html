@@ -1,0 +1,29 @@
+{%- assign artifacts = include.node.artifacts -%}
+<section class="dd-artifact-panel" data-dd-artifact-panel>
+  <h4>📎 Dateien & Artefakte</h4>
+  {%- if artifacts and artifacts.size > 0 -%}
+    <ul class="dd-artifact-list">
+      {%- for artifact in artifacts -%}
+        <li>
+          <a class="dd-artifact-link"
+             href="{{ artifact.github_url | default: artifact.url }}"
+             data-artifact-type="{{ artifact.type | default: 'file' }}"
+             data-preview-url="{{ artifact.preview_url | default: artifact.raw_url | default: artifact.url }}"
+             data-filename="{{ artifact.filename | default: artifact.label }}"
+             target="_blank" rel="noopener">
+            {{ artifact.filename | default: artifact.label }}
+          </a>
+          {%- if artifact.repo -%}<span class="badge text-bg-secondary">{{ artifact.repo }}</span>{%- endif -%}
+          {%- if artifact.status -%}<span class="badge text-bg-info">{{ artifact.status }}</span>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- else -%}
+    <p class="dd-muted">Noch keine Artefakte für diesen Branch verknüpft.</p>
+  {%- endif -%}
+
+  <div class="dd-artifact-preview" data-dd-artifact-preview hidden>
+    <div class="dd-preview-title" data-dd-preview-title>Vorschau</div>
+    <div class="dd-preview-body" data-dd-preview-body></div>
+  </div>
+</section>

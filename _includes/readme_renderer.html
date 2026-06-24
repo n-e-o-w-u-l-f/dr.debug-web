@@ -1,0 +1,16 @@
+<section class="dd-readme-box"
+         data-dd-readme-box
+         data-default-readme="{{ '/README.md' | relative_url }}"
+         data-memory-readme="https://raw.githubusercontent.com/n-e-o-w-u-l-f/dr.debug-memory/main/README.md">
+  <header class="dd-readme-header">
+    <p class="dd-kicker">README Renderer</p>
+    <h2>📖 README</h2>
+    <p>Hier wird die README des aktiven Branches oder der Repository-README gerendert.</p>
+  </header>
+
+  <div class="dd-readme-body" data-dd-readme-body>
+    <p class="dd-muted">README wird geladen …</p>
+  </div>
+
+  {% include last_changes.html %}
+</section>

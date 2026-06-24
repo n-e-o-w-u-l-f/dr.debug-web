@@ -1,0 +1,19 @@
+<section class="dd-last-changes" data-dd-last-changes>
+  <h2>📰 Last Changes</h2>
+  <ol class="dd-last-changes-list">
+    {%- assign changes = site.data.last_changes.last_changes | default: site.data.last_changes -%}
+    {%- if changes and changes.size > 0 -%}
+      {%- for change in changes limit: 10 -%}
+        <li>
+          <time>{{ change.date }}</time>
+          <strong>{{ change.repo }}</strong> —
+          <code>{{ change.path }}</code>
+          <span>{{ change.summary }}</span>
+          {%- if change.commit -%}<small> · {{ change.commit }}</small>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    {%- else -%}
+      <li>Keine geprüften Änderungen gefunden. Nach dem nächsten echten Write wird diese Liste aktualisiert.</li>
+    {%- endif -%}
+  </ol>
+</section>

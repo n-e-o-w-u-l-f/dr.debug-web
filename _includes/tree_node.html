@@ -1,74 +1,80 @@
 {%- assign node = include.node -%}
 {%- assign node_id = include.id | default: "root" -%}
-{%- assign is_open = include.open | default: false -%}
 {%- assign depth = include.depth | default: 0 -%}
 {%- assign has_children = false -%}
-{%- if node.children and node.children.size > 0 -%}
-  {%- assign has_children = true -%}
-{%- endif -%}
+{%- if node.children and node.children.size > 0 -%}{%- assign has_children = true -%}{%- endif -%}
 
-<li class="tree-node depth-{{ depth }}" data-node-kind="{{ node.node_kind | default: 'branch_or_endpoint' }}" data-depth="{{ depth }}">
-  <div class="tree-row d-flex align-items-start gap-2 py-1">
-    {%- if has_children -%}
-      <button
-        class="tree-toggle btn btn-sm btn-outline-secondary font-monospace"
-        type="button"
-        data-tree-toggle
-        data-bs-toggle="collapse"
-        data-bs-target="#children-{{ node_id }}"
-        aria-controls="children-{{ node_id }}"
-        aria-expanded="{% if is_open %}true{% else %}false{% endif %}">
-        <span class="tree-toggle-symbol">{% if is_open %}[-]{% else %}[+]{% endif %}</span>
-      </button>
-    {%- else -%}
-      <span class="tree-leaf-spacer font-monospace text-muted">•</span>
-    {%- endif -%}
-
-    <div class="tree-label flex-grow-1">
-      <span class="fw-semibold">{%- if node.icon -%}<img src="{{ node.icon | relative_url }}" alt="" class="tree-node-icon" loading="lazy" style="width:1.15em;height:1.15em;object-fit:contain;vertical-align:-0.18em;margin-inline-end:0.25em;"> {%- endif -%}{{ node.label }}{%- if node.has_content -%} <span class="tree-node-content" title="CONTENT.md vorhanden" aria-label="CONTENT.md vorhanden">📄</span>{%- endif -%}</span>
-
-      {%- comment -%}
-        Important: children_count is internal only.
-        Visible numbers must describe Wissenstand / MEMORY presence, not how many folders exist below a branch.
-      {%- endcomment -%}
-
-      {%- if node.knowledge_count != nil -%}
-        <span class="badge badge-knowledge ms-1" title="Wissenstand-Zähler, später aus dr.debug-memory/dr.debug-web synchronisiert">Wissen {{ node.knowledge_count }}</span>
-      {%- elsif node.count != nil -%}
-        <span class="badge badge-knowledge ms-1" title="Zählfeld für konkrete Inhalte">{{ node.count }}</span>
+{%- if node_id == "root" -%}
+  <div class="dd-tree" data-dd-tree-root>
+    <ul class="dd-node-list dd-node-list-root" role="tree">
+      {%- if has_children -%}
+        {%- for child in node.children -%}
+          {%- assign child_id = "node-" | append: forloop.index0 -%}
+          {%- include tree_node.html node=child id=child_id open=false depth=1 -%}
+        {%- endfor -%}
+      {%- else -%}
+        <li class="dd-empty">Noch keine Stammbaumdaten gefunden.</li>
       {%- endif -%}
-
-      {%- if node.present_total != nil or node.missing_total != nil -%}
-        <span class="badge text-bg-success ms-1">vorhanden {{ node.present_total | default: 0 }}</span>
-        <span class="badge text-bg-danger ms-1">fehlend {{ node.missing_total | default: 0 }}</span>
-      {%- endif -%}
-
-      {%- if node.status -%}
-        <span class="badge text-bg-warning ms-1">{{ node.status }}</span>
-      {%- endif -%}
-      {%- if node.node_kind == "relation" -%}
-        <span class="badge text-bg-info ms-1">Relation</span>
-      {%- endif -%}
-      {%- if node.node_kind == "knowledge_metric" -%}
-        <span class="badge text-bg-primary ms-1">Wissensstand</span>
-      {%- endif -%}
-      {%- if node.source_count and node.source_count > 0 -%}
-        <span class="badge text-bg-success ms-1">Quellen {{ node.source_count }}</span>
-      {%- endif -%}
-    </div>
-  </div>
-
-  {%- if has_children -%}
-    <ul id="children-{{ node_id }}" class="tree-children collapse fade-collapse{% if is_open %} show{% endif %}">
-      {%- for child in node.children -%}
-        {%- assign child_id = node_id | append: "-" | append: forloop.index0 -%}
-        {%- assign child_open = false -%}
-        {%- if node_id == "root" and forloop.first -%}
-          {%- assign child_open = true -%}
-        {%- endif -%}
-        {%- assign next_depth = depth | plus: 1 -%}
-        {%- include tree_node.html node=child id=child_id open=child_open depth=next_depth -%}
-      {%- endfor -%}
     </ul>
-  {%- endif -%}
-</li>
+  </div>
+{%- else -%}
+  {%- assign panel_id = "panel-" | append: node_id -%}
+  <li class="dd-node" role="treeitem" aria-expanded="false" data-node-id="{{ node_id }}" data-depth="{{ depth }}">
+    <article class="dd-node-card is-collapsed" data-dd-node-card>
+      <header class="dd-node-header">
+        {%- if has_children -%}
+          <button class="dd-node-toggle" type="button" aria-expanded="false" aria-controls="{{ panel_id }}" data-dd-toggle>
+            <span class="dd-chevron" aria-hidden="true">›</span>
+            <span class="visually-hidden">Branch öffnen oder schließen</span>
+          </button>
+        {%- else -%}
+          <span class="dd-leaf-dot" aria-hidden="true">•</span>
+        {%- endif -%}
+
+        <div class="dd-node-title-wrap">
+          <h2 class="dd-node-title">
+            {%- if node.icon -%}<span class="dd-node-icon">{{ node.icon }}</span>{%- endif -%}
+            {{ node.label | default: "Unbenannter Branch" }}
+          </h2>
+          <div class="dd-node-badges">
+            {%- if node.node_kind -%}<span class="badge text-bg-secondary">{{ node.node_kind }}</span>{%- endif -%}
+            {%- if node.status -%}<span class="badge text-bg-info">{{ node.status }}</span>{%- endif -%}
+            {%- if node.knowledge_count != nil -%}<span class="badge text-bg-success">Wissen {{ node.knowledge_count }}</span>{%- endif -%}
+            {%- if node.present_total != nil -%}<span class="badge text-bg-success">vorhanden {{ node.present_total }}</span>{%- endif -%}
+            {%- if node.missing_total != nil -%}<span class="badge text-bg-warning">fehlend {{ node.missing_total }}</span>{%- endif -%}
+            {%- if node.source_count and node.source_count > 0 -%}<span class="badge text-bg-light text-dark">Quellen {{ node.source_count }}</span>{%- endif -%}
+          </div>
+        </div>
+      </header>
+
+      <div id="{{ panel_id }}" class="dd-node-content" hidden data-dd-node-content
+           data-readme-url="{{ node.readme_url | default: '' }}"
+           data-memory-url="{{ node.memory_url | default: '' }}"
+           data-web-url="{{ node.web_url | default: '' }}">
+        <div class="dd-content-grid">
+          <section class="dd-branch-summary">
+            <h3>{{ node.label | default: "Branch" }}</h3>
+            {%- if node.description -%}<p>{{ node.description }}</p>{%- endif -%}
+
+            <div class="dd-github-links">
+              {%- if node.web_url -%}<a class="btn btn-sm btn-outline-info" href="{{ node.web_url }}">dr.debug-web</a>{%- endif -%}
+              {%- if node.memory_url -%}<a class="btn btn-sm btn-outline-success" href="{{ node.memory_url }}">dr.debug-memory</a>{%- endif -%}
+            </div>
+          </section>
+
+          {% include artifact_preview.html node=node %}
+        </div>
+
+        {%- if has_children -%}
+          <ul class="dd-node-list" role="group">
+            {%- for child in node.children -%}
+              {%- assign child_id = node_id | append: "-" | append: forloop.index0 -%}
+              {%- assign next_depth = depth | plus: 1 -%}
+              {%- include tree_node.html node=child id=child_id open=false depth=next_depth -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </article>
+  </li>
+{%- endif -%}
