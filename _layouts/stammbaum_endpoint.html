@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<article class="dd-endpoint-page">
+  <nav class="dd-breadcrumb mb-3" aria-label="Breadcrumb">
+    <a href="{{ '/' | relative_url }}">Stammbaum</a>
+    <span aria-hidden="true">›</span>
+    <span>{{ page.title | default: page.name }}</span>
+  </nav>
+
+  <section class="dd-node-card is-active">
+    <header class="dd-node-header">
+      <h1>{{ page.title | default: page.name }}</h1>
+      {% if page.status %}<span class="badge text-bg-secondary">{{ page.status }}</span>{% endif %}
+      {% if page.memory_record %}<a class="badge text-bg-info" href="{{ page.memory_record }}">Memory Record</a>{% endif %}
+    </header>
+
+    <div class="dd-node-content is-open">
+      {{ content }}
+    </div>
+  </section>
+</article>
